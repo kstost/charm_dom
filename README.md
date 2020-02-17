@@ -32,7 +32,14 @@ export default () => {
     // 하지만 3가지 신경써주세요
 
     // 1, call rdom() once not over twice in useEffect.
+    // This method returns the dom you can manipulate and access
+    // The style.display attirubute of this dom it returns is defaultly 'none'
+    // You need to change this attribute if you need. you may need to change it
+    
     // 1째로 rdom() 은 useEffect 안에서 1회만 실행해주세요
+    // 이 함수는 당신이 접근하고 조작할 수 있는 돔을 리턴해줍니다
+    // 이렇게 리턴받은 돔의 style.display 속성은 기본적으로 'none' 상태입니다.
+    // 그래서 이것의 속성을 style.display='' 로 바꾸지 않으면 보이지 않을겁니다
     let rdom = my_button.current.rdom();
     if (rdom) {
 
