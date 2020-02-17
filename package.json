@@ -1,0 +1,16 @@
+{
+  "name": "charm_dom",
+  "version": "0.0.1",
+  "description": "you can use jquery with react safely with it",
+  "main": "charm_dom.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kstost/charm_dom.git"
+  },
+  "keywords": [
+    "jquery",
+    "react"
+  ],
+  "author": "Kim seung tae <monogatree@gmail.com>",
+  "license": "MIT"
+}
