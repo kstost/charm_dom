@@ -19,7 +19,7 @@ export default () => {
   // 여기에 useRef() 를 사용해서 선언하세요. 이것은 리액트 돔과 연결하고 당신이 제이쿼리로 주물럭거리기 위한 변수입니다
   // 물론 제이쿼리를 사용하지 않고 바닐라자스로 사용해도 됩니다
 
-  const my_button = useRef(charmDOM(useRef()));
+  const my_dom = useRef(charmDOM(useRef()));
 
   useEffect(() => {
 
@@ -35,12 +35,12 @@ export default () => {
     // This method returns the dom you can manipulate and access
     // The style.display attirubute of this dom it returns is defaultly 'none'
     // You need to change this attribute if you need. you may need to change it
-    
+
     // 1째로 rdom() 은 useEffect 안에서 1회만 실행해주세요
     // 이 함수는 당신이 접근하고 조작할 수 있는 돔을 리턴해줍니다
     // 이렇게 리턴받은 돔의 style.display 속성은 기본적으로 'none' 상태입니다.
     // 그래서 이것의 속성을 style.display='' 로 바꾸지 않으면 보이지 않을겁니다
-    let rdom = my_button.current.rdom();
+    let rdom = my_dom.current.rdom();
     if (rdom) {
 
       // 2, Do not select dom by searching with id like $('#hello')
@@ -51,35 +51,34 @@ export default () => {
         padding: 50,
         border: '1px solid red'
       });
-      $(rdom).click(e => {
-        fn(val + 1);
-      });
 
       // 3, Select like $(dom).find('.nav') instead of $('.nav');
       // 3째로 $('.nav') 보다는 $(dom).find('.nav') 의 방법으로 선택해주세요
-      $(rdom).find('span').css({
-        color: 'green'
-      })
+      $(rdom).find('.fw').css({ color: 'green' });
+      $(rdom).find('.vs').css({ color: '#ff00ee', fontSize: (10 + rdom.custom_value) + 'px' });
       rdom.querySelectorAll('span')[0].style.backgroundColor = 'yellow';
+
     }
 
   }, [val]);
   return (
     <div>
       {/* 
-       connect my_button to your button by adding ref, style like below
-       아래와 같이 당신의 버튼의 ref와 style 속성에 my_button를 연결하세요
+       connect my_dom to your div by adding ref, style like below
+       아래와 같이 당신의 div의 ref와 style 속성에 my_dom를 연결하세요
       */}
       {
         val % 2 ?
-          <button ref={my_button.current.ref} style={my_button.current.style}>
+          <div custom_value={val} ref={my_dom.current.ref} style={my_dom.current.style}>
             {val}
-            <span>hello</span>
-          </button>
+            <span className='fw' onClick={e => { fn(val + 1); }}>hello</span>
+            <br />
+            <span className='vs' onClick={e => { e.target.innerHTML += '3'; }} style={{ backgroundColor: 'green' }}>ffe</span>
+          </div>
           :
-          <button onClick={() => { fn(val + 1); }}>
+          <div onClick={() => { fn(val + 1); }}>
             {val}
-          </button>
+          </div>
       }
     </div>
   )

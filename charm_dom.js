@@ -1,6 +1,6 @@
 // MIT licensed, see LICENSE file
 // Copyright (c) 2020 Kim seung tae <monogatree@gmail.com>
-
+let cmm = require('./lib/ext');
 module.exports = function (ref) {
     return {
         style: { display: 'none' },
@@ -12,7 +12,12 @@ module.exports = function (ref) {
             let refNode = this.ref.current;
             if (refNode) {
                 this.rnode = refNode.cloneNode(true);
-                refNode.parentNode.appendChild(this.rnode);
+                let listv = cmm.walk_recursive(refNode, []);
+                let listc = cmm.walk_recursive(this.rnode, []);
+                for (let i = 0; i < listc.length; i++) {
+                    cmm.cpp(listv[i], listc[i]);
+                }
+                cmm.insertAfter(this.rnode, refNode);
                 return this.rnode;
             }
         },
