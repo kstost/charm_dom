@@ -2,52 +2,57 @@
 ## Install
 
 ```
-$ npm install knimation
-```
-
-## Usage
-
-```js
-import Knimation from 'knimation'
-
-/*
-   new Knimation(callback_function, duration_time) takes two arguments
-   callback_function is a function that would be called every 1/60 second
-   duration_time(optional) is a duration time. It will automatically stop after this time spent. It doesn't stop if you don't give this.
-*/
-let job = new Knimation((delta_time, spent_time, spent_ratio, object_pointer) => {
-    /*
-        code here that you want to run every 1/60 second
-        delta_time = spent time from very previous frame
-        spent_ratio = time spent ratio (1 = 100% (end)), if you don't give duration_time, this value is constantly -1
-        object_pointer = the object of knimation. you can control with methods in this object
-
-        object_pointer.start() = start animation. it automatically will be called when the object created.
-        object_pointer.stop() = stop animation. if you start() after stop() spent_time will starts from 0
-        object_pointer.pause() = pause animation. if you start() after pause() spent_time will starts from the time of when you pause()
-        object_pointer.destroy() = terminate all task
-    */
-}, 2000);
+$ npm install charm_dom
 ```
 
 ## Usage
 
 ```js
 import React, { useEffect, useRef } from 'react'
-import Knimation from 'knimation'
-function App() {
-  const ref = useRef();
+import charmDOM from 'charm_dom'
+export default () => {
+  let [val, fn] = useState(1);
+
+  // Declare here with useRef(). This is for you to connect it to your react dom and manipulate the dom with jquery
+  // 여기에 useRef() 를 사용해서 선언하세요. 이것은 리액트 돔과 연결하고 당신이 제이쿼리로 주물럭거리기 위한 변수입니다
+  const my_button = useRef(charmDOM(useRef())); 
+
   useEffect(() => {
-    let pos = 0;
-    new Knimation((delta_time, spent_time, spent_ratio, object_pointer) => {
-      pos += 0.05 * delta_time;
-      ref.current.style.top = pos + 'px';
+
+    // useEffect is called after rendering is done
+    // You can manipulate dom with jquery directly here like you've been doing
+    // but we have two things we should be aware of
+    // first, Do not select dom by searching with id like $('#hello')
+    // second, Select like $(my_button.current.rdom()).find('.nav') instead of $('.nav');
+    let node = $(my_button.current.rdom());
+    node.css({
+      display: '',
+      fontSize: 50,
+      padding: 50,
+      border: '1px solid red'
     });
-  }, []);
-  return <div ref={ref} style={{
-    position: 'absolute',
-  }}>MO1V</div>
+    node.find('span').css({
+      color:'green'
+    })
+
+    node.click(e => {
+      fn(val + 1);
+    });
+
+  }, [val]);
+  return (
+    <div>
+      {/* 
+       connect my_button to your button by adding ref, style like below
+       아래와 같이 당신의 버튼의 ref와 style 속성에 my_button를 연결하세요
+      */}
+      <button ref={my_button.current.ref} style={my_button.current.style}>
+        {val}
+        <span>hello</span>
+      </button>
+    </div>
+  )
 }
-export default App;
+
 ```
 
