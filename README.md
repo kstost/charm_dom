@@ -34,25 +34,27 @@ export default () => {
     // 1, call rdom() once not over twice in useEffect.
     // 1째로 rdom() 은 useEffect 안에서 1회만 실행해주세요
     let rdom = my_button.current.rdom();
+    if (rdom) {
 
-    // 2, Do not select dom by searching with id like $('#hello')
-    // 2째로 돔을 id 로 셀렉트하는것을 피해주세요
-    $(rdom).css({
-      display: '',
-      fontSize: 50,
-      padding: 50,
-      border: '1px solid red'
-    });
-    $(rdom).click(e => {
-      fn(val + 1);
-    });
+      // 2, Do not select dom by searching with id like $('#hello')
+      // 2째로 돔을 id 로 셀렉트하는것을 피해주세요
+      $(rdom).css({
+        display: '',
+        fontSize: 50,
+        padding: 50,
+        border: '1px solid red'
+      });
+      $(rdom).click(e => {
+        fn(val + 1);
+      });
 
-    // 3, Select like $(dom).find('.nav') instead of $('.nav');
-    // 3째로 $('.nav') 보다는 $(dom).find('.nav') 의 방법으로 선택해주세요
-    $(rdom).find('span').css({
-      color: 'green'
-    })
-    rdom.querySelectorAll('span')[0].style.backgroundColor = 'yellow';
+      // 3, Select like $(dom).find('.nav') instead of $('.nav');
+      // 3째로 $('.nav') 보다는 $(dom).find('.nav') 의 방법으로 선택해주세요
+      $(rdom).find('span').css({
+        color: 'green'
+      })
+      rdom.querySelectorAll('span')[0].style.backgroundColor = 'yellow';
+    }
 
   }, [val]);
   return (
@@ -61,10 +63,17 @@ export default () => {
        connect my_button to your button by adding ref, style like below
        아래와 같이 당신의 버튼의 ref와 style 속성에 my_button를 연결하세요
       */}
-      <button ref={my_button.current.ref} style={my_button.current.style}>
-        {val}
-        <span>hello</span>
-      </button>
+      {
+        val % 2 ?
+          <button ref={my_button.current.ref} style={my_button.current.style}>
+            {val}
+            <span>hello</span>
+          </button>
+          :
+          <button onClick={() => { fn(val + 1); }}>
+            {val}
+          </button>
+      }
     </div>
   )
 }
