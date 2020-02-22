@@ -7,6 +7,9 @@ module.exports = function (ref) {
         ref: ref,
         rdom() {
             if (this.rnode && this.rnode.parentNode) {
+                if (this.rnode.custom_box && this.rnode.custom_box.Knimation) {
+                    this.rnode.custom_box.Knimation.remove_dts_from_dom(this.rnode);
+                }
                 this.rnode.parentNode.removeChild(this.rnode);
             }
             let refNode = this.ref.current;
