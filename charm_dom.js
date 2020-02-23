@@ -27,6 +27,6 @@ function charmDOM(ref) {
         },
     };
 }
-module.exports = function () {
+export default function () {
     return useRef(charmDOM(useRef()));
 };
