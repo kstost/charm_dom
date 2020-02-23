@@ -3,29 +3,32 @@
 import React, { useState, useRef } from 'react'
 let cmm = require('./lib/ext');
 function charmDOM(ref) {
-    return {
-        style: { display: 'none' },
-        ref: ref,
+    let t_rnode;// = this.rnode;
+    let uob = {
         rdom() {
-            if (this.rnode && this.rnode.parentNode) {
-                if (this.rnode.custom_box && this.rnode.custom_box.Knimation) {
-                    this.rnode.custom_box.Knimation.remove_dts_from_dom(this.rnode);
+            if (t_rnode && t_rnode.parentNode) {
+                if (t_rnode.custom_box && t_rnode.custom_box.Knimation) {
+                    t_rnode.custom_box.Knimation.remove_dts_from_dom(t_rnode);
                 }
-                this.rnode.parentNode.removeChild(this.rnode);
+                t_rnode.parentNode.removeChild(t_rnode);
             }
             let refNode = this.ref.current;
             if (refNode) {
-                this.rnode = refNode.cloneNode(true);
+                t_rnode = refNode.cloneNode(true);
                 let listv = cmm.walk_recursive(refNode, []);
-                let listc = cmm.walk_recursive(this.rnode, []);
+                let listc = cmm.walk_recursive(t_rnode, []);
                 for (let i = 0; i < listc.length; i++) {
                     cmm.cpp(listv[i], listc[i]);
                 }
-                cmm.insertAfter(this.rnode, refNode);
-                return this.rnode;
+                cmm.insertAfter(t_rnode, refNode);
+                return t_rnode;
             }
         },
-    };
+    }
+    return [{
+        style: { display: 'none' },
+        ref: ref,
+    }, uob.rdom];
 }
 export default function () {
     return useRef(charmDOM(useRef()));
