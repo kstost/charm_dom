@@ -31,5 +31,6 @@ function charmDOM(ref) {
     }, uob.rdom];
 }
 export default function () {
-    return useRef(charmDOM(useRef()));
+    let dd = charmDOM(useRef());
+    return [useRef(dd[0]), dd[1]];
 };
