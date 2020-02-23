@@ -10,16 +10,16 @@ $ npm install charm_dom
 ```js
 import React, { useEffect, useRef } from 'react'
 import charmDOM from 'charm_dom'
-import $ from 'jquery'
+import $ from 'jquery' // Not a fundamental module for charm_dom 필수가 아닙니다
 export default () => {
   let [val, fn] = useState(1);
 
-  // Declare here with useRef(). This is for you to connect it to your react dom and manipulate the dom with jquery.
+  // Declare here with useCharm(). This is for you to connect it to your react dom and manipulate the dom with jquery.
   // You can use it with vanilla js without jquery of course.
-  // 여기에 useRef() 를 사용해서 선언하세요. 이것은 리액트 돔과 연결하고 당신이 제이쿼리로 주물럭거리기 위한 변수입니다
+  // 여기에 useCharm() 를 사용해서 선언하세요. 이것은 리액트 돔과 연결하고 당신이 제이쿼리로 주물럭거리기 위한 변수입니다
   // 물론 제이쿼리를 사용하지 않고 바닐라자스로 사용해도 됩니다
 
-  const my_dom = useRef(charmDOM(useRef()));
+  const [domRef, getRealDom] = useCharm();
 
   useEffect(() => {
 
@@ -40,7 +40,8 @@ export default () => {
     // 이 함수는 당신이 접근하고 조작할 수 있는 돔을 리턴해줍니다
     // 이렇게 리턴받은 돔의 style.display 속성은 기본적으로 'none' 상태입니다.
     // 그래서 이것의 속성을 style.display='' 로 바꾸지 않으면 보이지 않을겁니다
-    let rdom = my_dom.current.rdom();
+    let rdom = getRealDom(); // 참돔 셀렉트
+    rdom.style.display = '';
     if (rdom) {
 
       // 2, Do not select dom by searching with id like $('#hello')
@@ -64,12 +65,12 @@ export default () => {
   return (
     <div>
       {/* 
-       connect my_dom to your div by adding ref, style like below
-       아래와 같이 당신의 div의 ref와 style 속성에 my_dom를 연결하세요
+       connect domRef to your div as a last attribute
+       아래와 같이 당신의 div에 domRef를 연결하세요 가장 마지막에 추가해주세요
       */}
       {
         val % 2 ?
-          <div custom_value={val} ref={my_dom.current.ref} style={my_dom.current.style}>
+          <div custom_value={val} {...domRef}>
             {val}
             <span className='fw' onClick={e => { fn(val + 1); }}>hello</span>
             <br />
