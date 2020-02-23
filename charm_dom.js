@@ -1,6 +1,8 @@
 // MIT licensed, see LICENSE file
 // Copyright (c) 2020 Kim seung tae <monogatree@gmail.com>
 import React, { useState, useRef } from 'react'
+import gen_rand_value from 'gen_rand_value'
+
 let cmm = require('./lib/ext');
 function charmDOM(ref) {
     let t_rnode;
@@ -28,7 +30,8 @@ function charmDOM(ref) {
             style: { display: 'none' },
             ref: ref,
         },
-        rdom
+        rdom,
+        gen_rand_value(10)
     ];
 }
 export default function () {
