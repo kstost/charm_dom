@@ -1,7 +1,7 @@
 // MIT licensed, see LICENSE file
 // Copyright (c) 2020 Kim seung tae <monogatree@gmail.com>
 let cmm = require('./lib/ext');
-module.exports = function (ref) {
+function charmDOM(ref) {
     return {
         style: { display: 'none' },
         ref: ref,
@@ -25,4 +25,7 @@ module.exports = function (ref) {
             }
         },
     };
+}
+module.exports = function () {
+    return useRef(charmDOM(useRef()));
 };
