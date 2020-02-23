@@ -12,7 +12,7 @@ function charmDOM(ref) {
                 }
                 t_rnode.parentNode.removeChild(t_rnode);
             }
-            let refNode = this.ref.current;
+            let refNode = ref.current;
             if (refNode) {
                 t_rnode = refNode.cloneNode(true);
                 let listv = cmm.walk_recursive(refNode, []);
