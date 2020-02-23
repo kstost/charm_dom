@@ -32,5 +32,5 @@ function charmDOM(ref) {
 }
 export default function () {
     let dd = charmDOM(useRef());
-    return useRef(dd);
+    return useRef(dd).current;
 };
