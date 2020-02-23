@@ -1,5 +1,6 @@
 // MIT licensed, see LICENSE file
 // Copyright (c) 2020 Kim seung tae <monogatree@gmail.com>
+import React, { useState, useRef } from 'react'
 let cmm = require('./lib/ext');
 function charmDOM(ref) {
     return {
