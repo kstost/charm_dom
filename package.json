@@ -1,6 +1,6 @@
 {
   "name": "charm_dom",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "You can manipulate real dom in react safely with it",
   "main": "charm_dom.js",
   "repository": {
@@ -13,6 +13,7 @@
   "author": "Kim seung tae <monogatree@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "gen_rand_value": "0.0.1"
+    "gen_rand_value": "0.0.1",
+    "very_global": "0.0.1"
   }
 }

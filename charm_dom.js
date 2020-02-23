@@ -2,6 +2,7 @@
 // Copyright (c) 2020 Kim seung tae <monogatree@gmail.com>
 import React, { useState, useRef } from 'react'
 import gen_rand_value from 'gen_rand_value'
+import very_global from 'very_global'
 
 let cmm = require('./lib/ext');
 function charmDOM(ref) {
@@ -22,6 +23,11 @@ function charmDOM(ref) {
                 cmm.cpp(listv[i], listc[i]);
             }
             cmm.insertAfter(t_rnode, refNode);
+            if (!t_rnode.custom_box) {
+                t_rnode.custom_box = {};
+            }
+            t_rnode.custom_box.eid = gen_rand_value(40) + '_' + very_global.unique();
+
             return t_rnode;
         }
     };
@@ -30,8 +36,7 @@ function charmDOM(ref) {
             style: { display: 'none' },
             ref: ref,
         },
-        rdom,
-        gen_rand_value(10)
+        rdom
     ];
 }
 export default function () {
