@@ -1,6 +1,6 @@
 {
   "name": "charm_dom",
-  "version": "0.3.9",
+  "version": "0.4.1",
   "description": "You can manipulate real dom in react safely with it",
   "main": "charm_dom.js",
   "repository": {

@@ -8,7 +8,7 @@ let cmm = require('./lib/ext');
 function charmDOM(ref) {
     let t_rnode;
     function rdom(p_req) {
-        if (p_req) {
+        if (!p_req) {
             return t_rnode;
         }
         if (t_rnode && t_rnode.parentNode) {
