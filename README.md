@@ -31,16 +31,20 @@ export default () => {
     // 여기서 돔에 접근해서 편집하고 수정할 수 있습니다.
     // 하지만 3가지 신경써주세요
 
-    // 1, call rdom() once not over twice in useEffect.
+    // 1, call getRealDom(true) once not over twice in useEffect. call it only once time after rendering
     // This method returns the dom you can manipulate and access
     // The style.display attirubute of this dom it returns is defaultly 'none'
     // You need to change this attribute if you need. you may need to change it
 
-    // 1째로 rdom() 은 useEffect 안에서 1회만 실행해주세요
+    // 1째로 getRealDom(true) 는 useEffect 안에서 렌더링 이후시점에 1회만 실행해주세요
     // 이 함수는 당신이 접근하고 조작할 수 있는 돔을 리턴해줍니다
     // 이렇게 리턴받은 돔의 style.display 속성은 기본적으로 'none' 상태입니다.
     // 그래서 이것의 속성을 style.display='' 로 바꾸지 않으면 보이지 않을겁니다
-    let rdom = getRealDom(); // 참돔 셀렉트
+    let rdom = getRealDom(true);
+
+    // It is okay to call getRealDom method without argument like below. return value of this call is the same as rdom above
+    // 이렇게 인자를 없이 호출하는건 언제던 가능하며 리턴값은 rdom 과 같습니다
+    let rdom2 = getRealDom();
     rdom.style.display = '';
     if (rdom) {
 
